@@ -41,11 +41,11 @@ Build-Depends:
  python-mako,
  flex,
  bison,
- llvm-4.0-dev (>= 1:4.0~) [amd64 arm64 armel armhf i386 kfreebsd-amd64 kfreebsd-i386 mips mips64el mipsel powerpc ppc64 sparc64 ppc64el],
+ llvm-3.9-dev [amd64 arm64 armel armhf i386 kfreebsd-amd64 kfreebsd-i386 mips mips64el mipsel powerpc ppc64 sparc64 ppc64el],
  libelf-dev [amd64 arm64 armel armhf i386 kfreebsd-amd64 kfreebsd-i386 mips mips64el mipsel powerpc ppc64 sparc64 ppc64el],
  libwayland-dev (>= 1.11.0) [linux-any],
- libclang-4.0-dev (>= 1:4.0~) [amd64 arm64 armel armhf i386 kfreebsd-amd64 kfreebsd-i386 mips mips64el mipsel powerpc ppc64 sparc64 ppc64el],
- libclc-dev (>= 0.2.0+git20170213) [amd64 arm64 armel armhf i386 kfreebsd-amd64 kfreebsd-i386 mips mips64el mipsel powerpc ppc64 sparc64 ppc64el],
+ libclang-3.9-dev [amd64 arm64 armel armhf i386 kfreebsd-amd64 kfreebsd-i386 mips mips64el mipsel powerpc ppc64 sparc64 ppc64el],
+ libclc-dev (>= 0.2.0+git20160907) [amd64 arm64 armel armhf i386 kfreebsd-amd64 kfreebsd-i386 mips mips64el mipsel powerpc ppc64 sparc64 ppc64el],
  zlib1g-dev,
  libglvnd-core-dev,
 Vcs-Git: https://anonscm.debian.org/git/pkg-xorg/lib/mesa.git
@@ -435,8 +435,8 @@ Section: libs
 Architecture: amd64 arm64 armel armhf i386 kfreebsd-amd64 kfreebsd-i386 mips mips64el mipsel powerpc ppc64 sparc64 ppc64el
 Pre-Depends: ${misc:Pre-Depends}
 Depends:
- libclc-r600 (>= 0.2.0+git20170213),
- libclc-amdgcn (>= 0.2.0+git20170213),
+ libclc-r600 (>= 0.2.0+git20160907),
+ libclc-amdgcn (>= 0.2.0+git20160907),
  ocl-icd-libopencl1 | libopencl1,
  ${shlibs:Depends},
  ${misc:Depends},
