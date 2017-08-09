@@ -119,7 +119,6 @@ Depends:
  ${misc:Depends},
  libgbm1 (= ${binary:Version}) [!hurd-any],
 Provides: libegl1-x11
-Conflicts: libegl1-x11
 Replaces: libegl1-x11
 Pre-Depends: ${misc:Pre-Depends}
 Multi-Arch: same
@@ -187,7 +186,6 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends},
 Provides: libgles2
-Conflicts: libgles2
 Replaces: libgles2
 Pre-Depends: ${misc:Pre-Depends}
 Multi-Arch: same

@@ -19,10 +19,6 @@ buildflags = \
 	$(shell DEB_CFLAGS_MAINT_APPEND="-Wall -fno-optimize-sibling-calls" DEB_CXXFLAGS_MAINT_APPEND="-Wall -fno-optimize-sibling-calls" dpkg-buildflags --export=configure)
 endif
 
-# keep a list of files we don't install (yet), but since it's a bit
-# large, use an external file:
-include debian/not-installed
-
 DRI_DRIVERS =
 GALLIUM_DRIVERS =
 VULKAN_DRIVERS =
@@ -206,6 +202,18 @@ override_dh_install:
   endif
 
 	dh_install -a --fail-missing
+
+	# Create an ld.so.conf which says where to find libGL from Mesa
+	echo "/usr/lib/$(DEB_HOST_MULTIARCH)/mesa" \
+	> $(CURDIR)/debian/libgl1-mesa-glx/usr/lib/$(DEB_HOST_MULTIARCH)/mesa/ld.so.conf
+
+	# Empty directory for the alternative
+	mkdir -p $(CURDIR)/debian/libgl1-mesa-glx/usr/lib/$(DEB_HOST_MULTIARCH)/xorg/x11-extra-modules
+
+	# Create an ld.so.conf which says where to find libEGL, libGLES{1,2}
+	# from Mesa.
+	echo "/usr/lib/$(DEB_HOST_MULTIARCH)/mesa-egl" \
+	> $(CURDIR)/debian/libegl1-mesa/usr/lib/$(DEB_HOST_MULTIARCH)/mesa-egl/ld.so.conf
 
 	# Install bug control and script:
 	set -e; for p in $(allpkg); do \
