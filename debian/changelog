@@ -1,3 +1,59 @@
+mesa (17.1.5-1endless1) master; urgency=medium
+
+  * Backport the following change for libglvnd integration
+
+     * Migrate mesa to build against libglvnd:
+       + patches:
+         - Fix gl.pc
+       + control:
+         - Add libglvnd-core-dev to build-depends
+         - Drop libgles2-mesa, provide a transitional package which
+           depends on libgles2
+       + control, install, symbols, lintian-overrides:
+         - Drop libegl1-mesa, libgl1-mesa-glx, add libegl-mesa0, libglx-mesa0,
+           provide transitional packages for libegl1-mesa, libgl1-mesa-glx
+         - Replace depends on libegl1-mesa with libegl1 or libglvnd-dev
+         - Add Provides: libegl-vendor to libegl-mesa0 and libglx-vendor to
+           libglx-mesa0
+       + control, lib{,e}gl1-mesa-dev.install:
+         - Drop .so files, provided by libglvnd-dev now
+         - Depend on libglvnd-dev instead of libegl1-mesa/libgl1-mesa-glx
+       + rules:
+         - Add --enable-libglvnd
+         - GLESv2 libs still get built, purge them from debian/tmp
+         - Remove lib{EGL,GLX}_mesa.so which are not needed for anything
+
+    -- Timo Aaltonen <tjaalton@debian.org>  Thu, 10 Aug 2017 13:24:52 +0300
+
+  * Lower llvm, clang and libclc requirements
+
+    EOS is currently based on Debian Stretch, lets adjust the dependencies
+    accordingly.
+
+    - debian/control:
+      - Lower llvm, clang and libclc (build and runtime) requirements to the
+        versions from Stretch.
+    - debian/rules:
+      - Lower gallium llvm-config confflag version to the version from Stretch.
+
+  * Cleanup Debian alternatives on upgrade
+
+    Mesa is now a back-end of glvnd, so we are moving the Debian
+    alternatives support from Mesa into libglvnd. We are assuming all
+    previous versions shipped with Debian alternatives support, as we
+    originally inherited this from Ubuntu, and carried it forward when we
+    switched our base to Debian.
+
+    +libegl1-mesa.preinst
+    +libgl1-mesa-glx.preinst
+    debian/control: Make libegl1-mesa and libgl1-mesa-glx dependent on
+      architecture (any), so the preinst script is correctly created for each
+      architecture.
+
+  https://phabricator.endlessm.com/T18579
+
+ -- João Paulo Rechi Vita <jprvita@endlessm.com>  Tue, 22 Aug 2017 11:29:08 -0700
+
 mesa (17.1.5-1) unstable; urgency=medium
 
   * Team upload.
